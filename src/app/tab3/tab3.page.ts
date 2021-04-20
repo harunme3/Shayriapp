@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormGroup, FormBuilder } from "@angular/forms";
+
 
 @Component({
   selector: 'app-tab3',
@@ -7,6 +10,5 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
 
 }

@@ -1,3 +1,58 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
-</ion-app>
+
+  <ion-menu contentId="menu-content" menuId="menu-content"  class="my-custom-menu"  >
+
+    <ion-header >
+
+    </ion-header>
+
+    <ion-content>
+
+
+      <div  class="menu-header-bg"></div>
+      <div class="header-content">
+        <img src="assets/shayari.png" alt="">
+          <label>
+            <h2>Train Status</h2>
+          </label>
+         </div>
+
+
+  <ion-list lines="none" class="menu-item" width="200" >
+
+
+     <ion-item >
+      <img src="assets/icon/share.png" alt="">
+        <ion-label>Share App</ion-label>
+      </ion-item>
+
+
+      <ion-item class="active" ion-item >
+        <img src="assets/icon/rating.png" alt="">
+        <ion-label>Rate us</ion-label>
+      </ion-item>
+
+      <ion-item  ion-item>
+        <img src="assets/icon/security.png" alt="">
+        <ion-label>privacy & policy</ion-label>
+      </ion-item>
+
+
+
+
+      <ion-item ion-item >
+        <img src="assets/icon/contact.png" alt="" >
+        <ion-label>contact us</ion-label>
+      </ion-item>
+
+    </ion-list>
+
+    </ion-content>
+  </ion-menu>
+
+
+
+
+
+    <ion-router-outlet id="menu-content"></ion-router-outlet>
+  </ion-app>

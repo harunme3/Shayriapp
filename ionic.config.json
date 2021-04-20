@@ -1,5 +1,7 @@
 {
   "name": "status saver for whatsapp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

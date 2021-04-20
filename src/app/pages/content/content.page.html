@@ -1,0 +1,67 @@
+<ion-header color="primary" >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content>
+
+
+
+
+
+
+
+
+
+
+  <div class="container" >
+
+
+     <div class="bottom" *ngFor="let item of paginationService.item2 "    >
+
+ <ion-card>
+   <ion-card-content>
+    {{item}}
+   </ion-card-content>
+ </ion-card>
+
+       <div class="bottom1"               >
+
+         <ion-icon  name="copy-outline" size="large"></ion-icon>
+
+       </div>
+
+       <div class="bottom1" >
+       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
+       </div>
+
+
+       <div class="bottom1">
+       <ion-icon name="share-social" size="large"></ion-icon>
+       </div>
+
+       <div class="bottom1">
+       <ion-icon name="heart" size="large" ></ion-icon>
+       </div>
+
+       <div class="bottom1">
+       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+       </div>
+
+       </div>
+  </div>
+
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
