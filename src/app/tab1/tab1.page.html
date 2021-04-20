@@ -8,18 +8,6 @@
 <ion-content>
 
 
-<ion-button (click)="hello() " expand="block" fill="clear" shape="round">
-  Click me
-</ion-button>
-
-
-<div *ngFor="let item of item2" >
-{{item}}
-</div>
-
-
-
-
   <ion-row>
     <ion-col size="6" *ngFor="let item of data" >
       <ion-card class="ion-padding" color="primary"  (click)="presentModal()">

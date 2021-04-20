@@ -9,32 +9,27 @@ import{ scan,tap,take} from 'rxjs/operators'
 export class PaginationService {
 
 
-//focus only in this page
 
-//source of data
-
+  // Source data
+  private _done = new BehaviorSubject(false);
+  private _loading = new BehaviorSubject(false);
   private _data = new BehaviorSubject([]);
 
 
-// make observable data now we can use only observer function next(),complete(),error()
-   data: Observable<any>;
 
-
-
-
-
-
-
-
+ // Observable data
+ data: Observable<any> = this._done.asObservable();;
+ done: Observable<boolean> = this._done.asObservable();
+ loading: Observable<boolean> = this._loading.asObservable();
 
   constructor(private af:AngularFirestore) {
 
-
    }
 
-
-
    item2:any=[];
+
+
+
 
 
 
@@ -44,10 +39,14 @@ init()
     return ref.limit(1)
   });
 
+
+
+
+
   this.mapAndUpdate(first);
 
     // Create the observable array for consumption in components
-    this.data = this._data.asObservable().pipe(
+    this.data = this._data.pipe(
       scan( (acc, val) => {
         return acc.concat(val)
       })
@@ -65,10 +64,8 @@ more() {
 
   const cursor = this.getCursor();
 
-
   const more = this.af.collection('verydard', ref => {
     return ref
-           .orderBy('field')
           .limit(1)
           .startAfter(cursor)
 
@@ -76,11 +73,10 @@ more() {
   this.mapAndUpdate(more)
 }
 
-
-private getCursor() {
+ // Determines the doc snapshot to paginate query
+ getCursor() {
 
   const current = this._data.value
-  console.log('current :>> ', current);
   if (current.length) {
     return current[current.length - 1].doc
   }
@@ -91,9 +87,16 @@ private getCursor() {
 
 
 
-
+// Maps the snapshot to usable format the updates source
 mapAndUpdate(col: AngularFirestoreCollection<any>) {
 
+
+  if (this._done.value || this._loading.value) {
+    return;
+  }
+
+ // loading
+ this._loading.next(true);
 
 
 
@@ -109,19 +112,26 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
         const doc = snap.payload.doc;
 
 
-       console.log('data :>> ', data.field);
-
+      // console.log('data :>> ', data.field);
        data.field.forEach(element => {
         this.item2.push(element)
        });
+
 
         return { ...data, doc }
       })
 
 
-
           // update source with new values, done loading
           this._data.next(values);
+           this._loading.next(false);
+
+              // no more values, mark done
+        if (!values.length) {
+          this._done.next(true);
+        }
+
+         this.data.subscribe(res=>console.log(res[0].field))
 
     })
 
@@ -135,7 +145,11 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
 
 }
 
-
+ // Reset the page
+ reset() {
+  this._data.next([]);
+  this._done.next(false);
+}
 
 
 

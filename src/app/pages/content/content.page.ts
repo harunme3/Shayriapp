@@ -25,6 +25,7 @@ export class ContentPage implements OnInit {
   ngOnInit(): void {
 
     this.paginationService.init();
+    console.log('data :>> ');
 
   }
 
