@@ -18,7 +18,6 @@ import { MenuController, ModalController } from '@ionic/angular';
 export class Tab1Page {
 data:any=[];
   constructor(private af:AngularFirestore,
-    private menuController: MenuController,
     private modalController: ModalController,
 
     private paginationService:PaginationService
@@ -38,42 +37,6 @@ async presentModal() {
   await modal.present();
 
 }
-
-
-items:any;
-item2:any=[];
-
-
-hello() {
-  //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-  //Add 'implements AfterViewInit' to the class.
-
-  this.af.collection('dard').get().subscribe((res)=>{
-
-
-    res.docs.forEach(snap=>{
-
-      this.items=snap.data();
-      console.log(this.items.field1.length)
-      this.items.field1.forEach(element => {
-       console.log('element :>> ', element);
-       this.item2.push(element)
-      });
-
-
-    })
-  })
-
-
-
-}
-
-
-
-
-
-
-
 
 
 
