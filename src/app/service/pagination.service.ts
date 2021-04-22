@@ -6,7 +6,14 @@ import{ scan,tap,take} from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
+
+
+
+
 export class PaginationService {
+
+
+
 
 
 
@@ -33,9 +40,11 @@ export class PaginationService {
 
 
 
-init()
+init(collection)
 {
-  const first = this.af.collection('verydard', ref => {
+
+
+  const first = this.af.collection(collection, ref => {
     return ref.limit(1)
   });
 
@@ -60,11 +69,11 @@ init()
 
 
 // Retrieves additional data from firestore
-more() {
+more(collection) {
 
   const cursor = this.getCursor();
 
-  const more = this.af.collection('verydard', ref => {
+  const more = this.af.collection(collection, ref => {
     return ref
           .limit(1)
           .startAfter(cursor)
@@ -112,7 +121,7 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
         const doc = snap.payload.doc;
 
 
-      // console.log('data :>> ', data.field);
+  console.log('data :>> ', data.field);
        data.field.forEach(element => {
         this.item2.push(element)
        });
@@ -131,7 +140,7 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
           this._done.next(true);
         }
 
-         this.data.subscribe(res=>console.log(res[0].field))
+      //   this.data.subscribe(res=>console.log(res[0].field))
 
     })
 

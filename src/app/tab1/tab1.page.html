@@ -9,8 +9,9 @@
 
 
   <ion-row>
-    <ion-col size="6" *ngFor="let item of data" >
-      <ion-card class="ion-padding" color="primary"  (click)="presentModal()">
+    <ion-col size="6" *ngFor="let item of data index as i" >
+      <ion-card class="cat-card" class="ion-padding" color="primary" [ngStyle]="{'background-image': setColor(i)}"   (click)="presentModal()">
+        <img src="../../assets/images/love.png" alt="">
         <ion-card-content>
         {{item}}
         </ion-card-content>
