@@ -26,10 +26,25 @@ export class ContentPage implements OnInit {
 
   ngOnInit(): void {
 
-    this.paginationService.init(this.value);
-console.log('value :>> ', this.value);
+  this.paginationService.init(this.value);
+   console.log('value :>> ', this.value);
 
   }
+
+  edit()
+  {
+
+  }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -13,48 +13,64 @@
 
 
 
+  <ion-card     *ngFor="let item of paginationService.item2 " mode="ios" >
+
+    <ion-card-content>
+      <div class="edit">
+          <div (click)="edit()">
+            edit
+          </div>
+      </div>
+
+      {{item}}
+
+    </ion-card-content>
+    <div class="bottom"  >
+
+      <div class="bottom1"               >
+
+        <ion-icon  name="copy-outline" size="large"></ion-icon>
+
+      </div>
+
+      <div class="bottom1" >
+      <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
+      </div>
+
+
+      <div class="bottom1">
+      <ion-icon name="share-social" size="large"></ion-icon>
+      </div>
+
+      <div class="bottom1">
+      <ion-icon name="heart" size="large" ></ion-icon>
+      </div>
+
+      <div class="bottom1">
+      <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+      </div>
+
+      </div>
+  </ion-card>
+
+
+  <div *ngIf="paginationService.loading"     >
+    <div *ngFor="let item of [].constructor(2)" >
+
+    <ion-card  mode="ios">
+      <ion-card-content>
+        <ion-skeleton-text  animated style="width:90% ; height: 18px; "   > </ion-skeleton-text>
+      <ion-skeleton-text animated  style="width:70% ; height: 18px "></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%;  height: 18px" ></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 80% ; height: 18px "></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:75%;  height: 18px "></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+    </div>  </div>
 
 
 
 
-
-
-  <div class="container" >
-
-
-     <div class="bottom" *ngFor="let item of paginationService.item2 "    >
-
- <ion-card>
-   <ion-card-content>
-    {{item}}
-   </ion-card-content>
- </ion-card>
-
-       <div class="bottom1"               >
-
-         <ion-icon  name="copy-outline" size="large"></ion-icon>
-
-       </div>
-
-       <div class="bottom1" >
-       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
-       </div>
-
-
-       <div class="bottom1">
-       <ion-icon name="share-social" size="large"></ion-icon>
-       </div>
-
-       <div class="bottom1">
-       <ion-icon name="heart" size="large" ></ion-icon>
-       </div>
-
-       <div class="bottom1">
-       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
-       </div>
-
-       </div>
-  </div>
 
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">

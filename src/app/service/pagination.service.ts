@@ -1,7 +1,7 @@
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Subject ,BehaviorSubject, pipe,Observable} from 'rxjs';
-import{ scan,tap,take} from 'rxjs/operators'
+import{ scan,tap,take, retry, retryWhen, delay} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -113,7 +113,8 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
   // Map snapshot with doc ref (needed for cursor)
   return col.snapshotChanges().pipe(
 
-    tap(arr => {
+
+   tap(arr => {
 
       let values = arr.map(snap => {
 

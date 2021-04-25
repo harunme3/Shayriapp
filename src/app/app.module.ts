@@ -7,8 +7,12 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+//one signal
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+
 //firebase
 import { AngularFireModule } from '@angular/fire';
+
 
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -18,6 +22,17 @@ import { environment } from '../environments/environment';
 
 
 import{PaginationService} from './service/\/pagination.service'
+
+//lottie
+
+
+
+
+
+
+
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -30,7 +45,8 @@ import{PaginationService} from './service/\/pagination.service'
 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-   PaginationService
+   PaginationService,
+   OneSignal
 
   ],
   bootstrap: [AppComponent],

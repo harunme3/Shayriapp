@@ -1,23 +1,35 @@
 <ion-toolbar>
   <ion-menu-button slot="start"  menu="menu-content"></ion-menu-button>
-  <ion-title>tab1</ion-title>
+  <ion-title>Shayari</ion-title>
+  <ion-icon (click)="edit()" class="ion-padding" slot="end" size="large" name="create-outline">
+  </ion-icon>
+  <ion-icon (click)="edit() " class="ion-padding" slot="end" size="large" name="heart-outline">
+  </ion-icon>
 </ion-toolbar>
 <ion-toolbar>
   <ion-searchbar (ionChange)="searchcard($event)"   showCancelButton="focus" debounce="500" placeholder="search Shayari"  animated ></ion-searchbar>
+
 </ion-toolbar>
 <ion-content>
 
 
   <ion-row>
-    <ion-col size="6" *ngFor="let item of data index as i" >
+    <ion-col size="6" *ngFor="let item of displayData index as i" >
       <ion-card class="cat-card" class="ion-padding" color="primary" [ngStyle]="{'background-image': setColor(i)}"   (click)="presentModal()">
-        <img src="../../assets/images/love.png" alt="">
+        <ng-lottie [options]="options" ></ng-lottie>
         <ion-card-content>
         {{item}}
         </ion-card-content>
       </ion-card>
     </ion-col>
   </ion-row>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 
 </ion-content>

@@ -1,11 +1,13 @@
+import { EditorPage } from './../pages/editor/editor.page';
 import { PaginationService } from './../service/pagination.service';
 
 import { ContentPage } from './../pages/content/content.page';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, ModalController } from '@ionic/angular';
-
-
+import { IonInfiniteScroll } from '@ionic/angular';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-tab1',
@@ -18,6 +20,12 @@ import { MenuController, ModalController } from '@ionic/angular';
 export class Tab1Page {
 data:any=[];
 color:any=[];
+flag:number=0;
+y:number=10;
+x:number=10;
+displayData:any=[];
+
+
   constructor(private af:AngularFirestore,
     private modalController: ModalController,
 
@@ -27,19 +35,48 @@ color:any=[];
 
   }
 
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
+
+
+
+
+  options: AnimationOptions = {
+      path: '../../assets/animation/2 (11).json'
+
+  }
+
+
+
+
+
+
+
+
+
+
+
 
 
 async presentModal() {
   const modal = await this.modalController.create({
   component:ContentPage,
-  componentProps: { value:'love' }
+  componentProps: { value:'verydard' }
   });
 
   await modal.present();
 
 }
 
+async edit() {
+  const modal = await this.modalController.create({
+  component:EditorPage,
+  componentProps: { value:'verydard' }
+  });
 
+  await modal.present();
+
+}
 
 
 ngOnInit(): void {
@@ -195,7 +232,8 @@ this.data=
 "Women's Day Shayari",
 'Yaad Shayari',
 'Zakham Shayari',
-'Zindagi Shayari']
+'Zindagi Shayari'
+]
 
 
 
@@ -451,7 +489,7 @@ this.color=[
 ]
 
 
-
+this.loadmoredata();
 
 
 
@@ -499,174 +537,17 @@ setColor(i)
 
 
 
-dummydata()
-{
-
-  this.data=
-  ['Aankhen Shayari',
-  'Aansu Shayari',
-  'Aitbaar Shayari',
-  'Ajnabi Shayari',
-  'Alone Shayari ',
-  'Anniversary Shayari ',
-  'Apnapan Shayari',
-  'April Fool Shayari',
-  'Army Shayari ',
-  'Arzoo Justajoo Shayari',
-  'Asqi',
-  'Attitude Shayari ',
-  'Bakra Eid Shayari ',
-  'Basant Panchami Shayari',
-  'Best Shayari ',
-  'Bewafa Shayari',
-  'Bhaiya Dooj Shayari ',
-  'Bhojpuri Shayari',
-  'Bhool Shayari',
-  'Birthday Shayari',
-  'Breakup Shayari ',
-  'Chahat Shayari',
-  'Chand Sitare Shayari',
-  "Children's Day Shayari ",
-  'Chocolate Day Shayari ',
-  'Christmas Day Shayari ',
-  'Computer Shayari ',
-  'Cool Shayari ',
-  'Corona Shayari ',
-  'Couple Shayari',
-  'Cute Shayari ',
-  'Dard Shayari',
-  "Daughter's Day Shayari ",
-  'Decent Shayari',
-  'Desh Bhakti Shayari ',
-  'Dhanteras Shayari ',
-  'Dhoka Shayari',
-  'Dil Shayari',
-  'Diwali Shayari',
-  'Dussehra Shayari ',
-  'Dosti Shayari ',
-  'Double meaning',
-  'Dua Shayari',
-  'Durga Ashtami Shayari ',
-  'Ehsaas Shayari',
-  'Eid Shayari',
-  'Election Shayari',
-  'Emotional Shayari',
-  "Engineer's Day Shayari ",
-  'English Poetry Shayari',
-  'Famous Shayari ',
-  "Farmer's Day Shayari ",
-  "Father's Day Shayari ",
-  'Festivals Shayari ',
-  'Flirt Shayari ',
-  'Fool Shayari ',
-  'Friendship Shayari',
-  'Friendship Day Shayari ',
-  'Funny Shayari',
-  'Ganesh Chaturthi Shayari',
-  'Get well soon Shayari',
-  'Gam Shayari',
-  'Girlfriend Boyfriend Shayari ',
-  'Good Evening Shayari ',
-  'Good Morning Shayari',
-  'Good Night Shayari',
-  'Good afternoon Shayari',
-  'Good luck ',
-  'Gudi Padwa Shayari ',
-  'Guru Purnima Shayari ',
-  'Hariyali Teej Shayari',
-  'Heart Touching Shayari',
-  'Hindi Diwas Shayari ',
-  'Holi Shayari',
-  'Hug Day Shayari',
-  'Independence Day Shayari ',
-  'Interesting Shayari ',
-  'Karbala Shayari',
-  'Karwa Chauth Shayari ',
-  'Kashmiri Shayari',
-  'Khushboo Shayari',
-  'Kiss Shayari',
-  'Kiss Day Shayari ',
-  'Krishna Janmashtami Shayari ',
-  'Love Shayari ',
-  'Maha Navami Shayari ',
-  'Maha Shivaratri Shayari',
-  'Mahila Sangeet Shayari ',
-  'Mehfil Muhabbat Shayari',
-  'Missing you Shayari',
-  "Mother's Day Shayari ",
-  'Motivational Shayari ',
-  'Muharram Shayari ',
-  'Nag Panchami Shayari',
-  'Narazgi Roothna Shayari',
-  'Naseeb Qismat Shayari',
-  'Naughty Shayari ',
-  'Navaratri Shayari ',
-  'Nazar Shayari',
-  'New Year Shayari ',
-  'Nimari Shayari ',
-  'Painful Shayari ',
-  'Phool Kaante Shayari',
-  'Politics Shayari',
-  'Positive Shayari ',
-  'Promise Day Shayari ',
-  'Propose Day Shayari ',
-  'Punjabi Shayari',
-  'Pyar Shayari',
-  'Rajasthani Shayari',
-  'Raksha Bandhan Shayari',
-  'Rama Navami Shayari ',
-  'Ramadan Shayari',
-  'Random Shayari',
-  'Relations Shayari',
-  'Relationship Shayari ',
-  'Republic Day Shayari ',
-  'Romantic Shayari',
-  'Rose Day Shayari ',
-  'SMS Shayari',
-  'Sad Shayari',
-  'Sardarji',
-  'Shaheed Diwas Shayari ',
-  'Sharaab Shayari',
-  'Sharabi Shayari ',
-  'Shaurya Diwas Shayari ',
-  'Smile Shayari ',
-  'Sorry Shayari',
-  'Tanhai Shayari',
-  'Taunting Shayari',
-  'Teachers Day Shayari ',
-  'Technical Shayari',
-  'Teddy Day Shayari ',
-  'Top Shayari ',
-  'Touching Shayari',
-  'Trending Shayari ',
-  'Tribute Shayari ',
-  'Truck Shayari ',
-  'twoLine Shayari ',
-  'Ultimate Shayari',
-  'Urdu Shayari',
-  "Valentine's Day Shayari ",
-  'Victory Shayari ',
-  'Vijay Diwas Shayari ',
-  'Viral Shayari ',
-  'Wedding Shayari ',
-  'Welcome Shayari ',
-  'Whatsapp Shayari',
-  "Women's Day Shayari",
-  'Yaad Shayari',
-  'Zakham Shayari',
-  'Zindagi Shayari']
-}
 
 searchcard(event?)
 {
 
-  this.dummydata();
+  this.displayData=[...this.data]
   let searchterm=event.srcElement.value;
+
 if(!searchterm)
 return;
 
-this.data=this.data.filter((shayari)=>{
-
+this.displayData=this.displayData.filter((shayari)=>{
   if(searchterm)
    return shayari.toLowerCase().indexOf(searchterm.toLowerCase())>-1;
 
@@ -674,5 +555,43 @@ this.data=this.data.filter((shayari)=>{
 
 
 }
+
+
+
+
+
+  //infinite scroll
+  //it will when reach 100px from bottom
+  loadData(event) {
+    console.log('reached at 100px distance from bottom');
+    setTimeout(() => {
+      this.loadmoredata()
+      console.log('function fired');
+      event.target.complete(); // it will hide the spinner
+
+    }, 500);
+  }
+
+
+loadmoredata()
+{
+  console.log('x :>> ', this.x);
+  this.y=this.y+this.x;
+if(this.displayData.length<=140)
+{
+for(this.flag;this.flag<this.y;this.flag++)
+{
+   this.displayData.push(this.data[this.flag])
+}
+}
+}
+
+
+
+
+
+
+
+
 
 }

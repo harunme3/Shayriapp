@@ -9,6 +9,10 @@ const routes: Routes = [
   {
     path: 'content',
     loadChildren: () => import('./pages/content/content.module').then( m => m.ContentPageModule)
+  },
+  {
+    path: 'editor',
+    loadChildren: () => import('./pages/editor/editor.module').then( m => m.EditorPageModule)
   }
 ];
 @NgModule({

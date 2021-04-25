@@ -6,6 +6,12 @@ import { Tab1Page } from './tab1.page';
 
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';export function playerFactory() {
+  return player;
+}
+
 
 @NgModule({
   imports: [
@@ -14,7 +20,11 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     FormsModule,
     Tab1PageRoutingModule,
     ReactiveFormsModule,
+    LottieModule.forRoot({ player: playerFactory })
   ],
-  declarations: [Tab1Page]
+  declarations: [Tab1Page],
+
+ schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class Tab1PageModule {}
