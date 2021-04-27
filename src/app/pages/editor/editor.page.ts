@@ -12,6 +12,7 @@ export class EditorPage implements OnInit {
 
   ngOnInit() {
   }
+
   closeModal() {
     this.modalController.dismiss();
   }

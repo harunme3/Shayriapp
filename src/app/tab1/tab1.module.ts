@@ -8,7 +8,10 @@ import { Tab1Page } from './tab1.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LottieModule } from 'ngx-lottie';
-import player from 'lottie-web';export function playerFactory() {
+
+import player from 'lottie-web/build/player/lottie_light';
+
+export function playerFactory() {
   return player;
 }
 

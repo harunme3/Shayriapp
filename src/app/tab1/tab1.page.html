@@ -16,7 +16,8 @@
   <ion-row>
     <ion-col size="6" *ngFor="let item of displayData index as i" >
       <ion-card class="cat-card" class="ion-padding" color="primary" [ngStyle]="{'background-image': setColor(i)}"   (click)="presentModal()">
-        <ng-lottie [options]="options" ></ng-lottie>
+        <!-- <ng-lottie [options]="lottieConfig"  width="80px"
+        height="80px"       ></ng-lottie> -->
         <ion-card-content>
         {{item}}
         </ion-card-content>

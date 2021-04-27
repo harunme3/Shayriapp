@@ -21,8 +21,8 @@ export class Tab1Page {
 data:any=[];
 color:any=[];
 flag:number=0;
-y:number=10;
-x:number=10;
+y:number=4;
+x:number=4;
 displayData:any=[];
 
 
@@ -40,11 +40,6 @@ displayData:any=[];
 
 
 
-
-  options: AnimationOptions = {
-      path: '../../assets/animation/2 (11).json'
-
-  }
 
 
 
@@ -503,11 +498,10 @@ this.loadmoredata();
 
 
 
+// lottieConfig: AnimationOptions = {
+//     path: `../../assets/animation/1 (11).json`
 
-
-
-
-
+// }
 
 
 
@@ -515,7 +509,14 @@ this.loadmoredata();
 setColor(i)
 {
 
+// this.lottieConfig={
+//   ...this.lottieConfig,
+//     path: `../../assets/animation/1 (${i}).json`
+
+// }
   return this.color[i];
+
+
 }
 
 
@@ -569,8 +570,10 @@ this.displayData=this.displayData.filter((shayari)=>{
       console.log('function fired');
       event.target.complete(); // it will hide the spinner
 
-    }, 500);
+    }, 100);
   }
+
+
 
 
 loadmoredata()
