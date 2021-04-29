@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 
-
+import { ColorPickerModule } from 'ngx-color-picker';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LottieModule } from 'ngx-lottie';
@@ -21,6 +21,8 @@ export function playerFactory() {
     IonicModule,
     CommonModule,
     FormsModule,
+    ColorPickerModule,
+
     Tab1PageRoutingModule,
     ReactiveFormsModule,
     LottieModule.forRoot({ player: playerFactory })

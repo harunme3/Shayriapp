@@ -8,7 +8,7 @@ import { MenuController, ModalController } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
 import { AnimationItem } from 'lottie-web';
 import { AnimationOptions } from 'ngx-lottie';
-
+import{AndroidPermissions} from '@ionic-native/android-permissions/ngx'
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -28,7 +28,7 @@ displayData:any=[];
 
   constructor(private af:AngularFirestore,
     private modalController: ModalController,
-
+private androidPermissions:AndroidPermissions,
     private paginationService:PaginationService
     )
   {
@@ -493,9 +493,32 @@ this.loadmoredata();
 
 
 
+permission()
 
+{
+  let list: string[] = [
+    this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+    this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+  ];
 
+  this.androidPermissions
+    .checkPermission(
+      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE
+    )
+    .then((res) => {
+      console.log("permission garnteed")
+       if(!res.hasPermission)
+       {
+        this.androidPermissions.requestPermissions(list);
 
+       }//
+
+    },err=>{
+      console.log("no permission error")
+      this.androidPermissions.requestPermissions(list);
+
+    });
+}
 
 
 // lottieConfig: AnimationOptions = {
