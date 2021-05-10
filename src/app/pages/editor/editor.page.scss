@@ -5,9 +5,6 @@
   flex-direction: column;
   justify-content:  space-around;
   height: 100%;
-
-
-
 }
 .container>div
 {
@@ -55,3 +52,12 @@ margin: 0px 10px;
 
 }
 
+ion-textarea
+{
+  --placeholder-color:rgb(124, 121, 121);
+  --placeholder-opacity:1;
+  --placeholder-font-weight:400px;
+  --placeholder-font-style:normal;
+  --padding-top:80px;
+
+}

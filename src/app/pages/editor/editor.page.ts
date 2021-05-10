@@ -1,11 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild ,Renderer2,NgZone} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild ,Renderer2,NgZone, Input} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import domtoimage from 'dom-to-image';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ImagePicker ,ImagePickerOptions} from '@ionic-native/image-picker/ngx';
-
 
 
 
@@ -24,6 +23,9 @@ export class EditorPage implements OnInit {
   @ViewChild('box') box:ElementRef;
   @ViewChild('box1') box1:ElementRef;
 
+  @Input() value: string;
+
+  textareavalue:string="hhhhhhhh";
 
 
   constructor(
@@ -33,7 +35,8 @@ export class EditorPage implements OnInit {
      private base64ToGallery: Base64ToGallery,
     private file:File,
     private socialSharing: SocialSharing,
-    private imagePicker: ImagePicker
+    private imagePicker: ImagePicker,
+
 
     ) {
 
@@ -44,7 +47,14 @@ export class EditorPage implements OnInit {
   color1="";
   color2="";
   ngOnInit() {
+
+
+    this.textareavalue=this.value;
   }
+
+
+
+
 
   closeModal() {
     this.modalController.dismiss();
@@ -154,7 +164,7 @@ Save()
 
          link.click();
 
-      this.writeFile(dataUrl,'xx','yy')
+      this.writeFile(dataUrl,'xx','yy.png')
 
       })
 

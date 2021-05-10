@@ -17,11 +17,12 @@
 
         <div class="editor" #box  >
          <div class="text" #box1  >
-          <ion-textarea value="Hindi Shayari " clearOnEdit="true" cols="6" rows="10" >
+          <ion-textarea    [(ngModel)]="textareavalue"    value={{textareavalue}}  placeholder="Write and edit your Shayari" clearOnEdit="true" cols="6" rows="10" >
+
           </ion-textarea>
          </div>
          <div class="logo" >
-          <div> <img src="../../../assets/images/love.png"    width="40px" height="40px"    alt=""> </div>
+          <div> <img src="../../../assets/images/logo.png"    width="40px" height="40px"    alt=""> </div>
           <div> TRV Shayari</div>
          </div>
         </div>

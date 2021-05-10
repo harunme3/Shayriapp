@@ -45,8 +45,12 @@ init(collection)
 
 
   const first = this.af.collection(collection, ref => {
-    return ref.limit(1)
+    return ref
+    .orderBy("time", "desc")
+    .limit(1)
   });
+
+  console.log('first :>> ', first);
 
 
 
@@ -75,6 +79,7 @@ more(collection) {
 
   const more = this.af.collection(collection, ref => {
     return ref
+       .orderBy("time", "desc")
           .limit(1)
           .startAfter(cursor)
 
@@ -115,15 +120,15 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
 
 
    tap(arr => {
+     console.log('arr :>> ', arr);
 
       let values = arr.map(snap => {
+
 
         const data = snap.payload.doc.data();
         const doc = snap.payload.doc;
 
-
-  console.log('data :>> ', data.field);
-       data.field.forEach(element => {
+       data.data.forEach(element => {
         this.item2.push(element)
        });
 
@@ -159,7 +164,27 @@ mapAndUpdate(col: AngularFirestoreCollection<any>) {
  reset() {
   this._data.next([]);
   this._done.next(false);
+  this.item2=[];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -15,8 +15,9 @@ import{File} from '@ionic-native/file/ngx'
 import{AndroidPermissions} from '@ionic-native/android-permissions/ngx'
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-
-
+import { Clipboard } from '@ionic-native/clipboard/ngx';
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Platform } from '@ionic/angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +36,10 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
    File,
    AndroidPermissions,
    SocialSharing,
-   ImagePicker
+   ImagePicker,
+   Clipboard,
+   NativeStorage,
+   Platform
 
 
   ],

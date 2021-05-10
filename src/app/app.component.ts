@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 @Component({
   selector: 'app-root',
@@ -6,12 +7,15 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private oneSignal: OneSignal)
+  constructor(private oneSignal: OneSignal,
+    private androidPermissions:AndroidPermissions,)
   {
     this.initializeApp();
   }
 
   initializeApp() {
+
+
 
 
     this.oneSignal.startInit('2d7274aa-9179-4605-a5ed-403315e6eaa8', '589803760372');
@@ -32,9 +36,37 @@ export class AppComponent {
 
 
 
-
+this.permission();
 
   }
+
+  permission()
+
+{
+  let list: string[] = [
+    this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
+    this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+  ];
+
+  this.androidPermissions
+    .checkPermission(
+      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE
+    )
+    .then((res) => {
+      console.log("permission garnteed")
+       if(!res.hasPermission)
+       {
+        this.androidPermissions.requestPermissions(list);
+
+       }//
+
+    },err=>{
+      console.log("no permission error")
+      this.androidPermissions.requestPermissions(list);
+
+    });
+}
+
 
 
 

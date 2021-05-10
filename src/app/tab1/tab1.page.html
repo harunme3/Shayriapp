@@ -1,26 +1,32 @@
 <ion-toolbar>
   <ion-menu-button slot="start"  menu="menu-content"></ion-menu-button>
-  <ion-title>Shayari</ion-title>
+  <ion-title>Shayari </ion-title>
+
+
   <ion-icon (click)="edit()" class="ion-padding" slot="end" size="large" name="create-outline">
   </ion-icon>
 
 
-
-  <ion-icon (click)="permission()" class="ion-padding" slot="end" size="large" name="heart-outline">
+  <ion-icon (click)="presentModalFavroite()" class="ion-padding" slot="end" size="large" name="heart-outline">
   </ion-icon>
+  <ion-icon (click)="presentModalDownload()" class="ion-padding" slot="end" size="large" name="download">
+  </ion-icon>
+
 
 </ion-toolbar>
 <ion-toolbar>
   <ion-searchbar class="searchbar" (ionChange)="searchcard($event)"   showCancelButton="focus" debounce="500" placeholder="search Shayari"  animated ></ion-searchbar>
 
+
 </ion-toolbar>
 <ion-content>
 
+
   <ion-row>
     <ion-col size="6" *ngFor="let item of displayData index as i" >
-      <ion-card class="cat-card" class="ion-padding" color="primary" [ngStyle]="{'background-image': setColor(i)}"   (click)="presentModal()">
-        <!-- <ng-lottie [options]="lottieConfig"  width="80px"
-        height="80px"       ></ng-lottie> -->
+      <ion-card class="cat-card" class="ion-padding" color="primary" [ngStyle]="{'background-image': setColor(i)}"   (click)="presentModal(item)">
+        <ng-lottie [options]="lottieConfig"  width="80px"
+        height="80px"       ></ng-lottie>
         <ion-card-content>
         {{item}}
         </ion-card-content>

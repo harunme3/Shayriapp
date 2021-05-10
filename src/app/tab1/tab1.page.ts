@@ -1,3 +1,5 @@
+import { DownloadPage } from './../pages/download/download.page';
+import { FavroitePage } from './../pages/favroite/favroite.page';
 import { EditorPage } from './../pages/editor/editor.page';
 import { PaginationService } from './../service/pagination.service';
 
@@ -18,12 +20,12 @@ import{AndroidPermissions} from '@ionic-native/android-permissions/ngx'
 
 
 export class Tab1Page {
-data:any=[];
-color:any=[];
-flag:number=0;
-y:number=4;
-x:number=4;
-displayData:any=[];
+  data:any=[];
+  color:any=[];
+  flag:number=0;
+  y:number=4;
+  x:number=4;
+  displayData:any=[];
 
 
   constructor(private af:AngularFirestore,
@@ -39,44 +41,49 @@ private androidPermissions:AndroidPermissions,
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-async presentModal() {
+async presentModal(item) {
   const modal = await this.modalController.create({
   component:ContentPage,
-  componentProps: { value:'verydard' }
+  componentProps: { value:item }
+  });
+
+  await modal.present();
+
+}
+async presentModalFavroite() {
+  const modal = await this.modalController.create({
+  component:FavroitePage,
+
   });
 
   await modal.present();
 
 }
 
-async edit() {
+async presentModalDownload() {
   const modal = await this.modalController.create({
-  component:EditorPage,
-  componentProps: { value:'verydard' }
+  component:DownloadPage,
+
   });
 
   await modal.present();
 
+}
+
+
+
+async edit() {
+  const modal = await this.modalController.create({
+  component:EditorPage
+  });
+
+  await modal.present();
 }
 
 
 ngOnInit(): void {
 this.data=
-['Aankhen Shayari',
+[' Aankhen Shayari ',
 'Aansu Shayari',
 'Aitbaar Shayari',
 'Ajnabi Shayari',
@@ -98,7 +105,7 @@ this.data=
 'Birthday Shayari',
 'Breakup Shayari ',
 'Chahat Shayari',
-'Chand Sitare Shayari',
+' Chand Sitare Shayari ',
 "Children's Day Shayari ",
 'Chocolate Day Shayari ',
 'Christmas Day Shayari ',
@@ -214,7 +221,7 @@ this.data=
 'Trending Shayari ',
 'Tribute Shayari ',
 'Truck Shayari ',
-'twoLine Shayari ',
+'TwoLine Shayari ',
 'Ultimate Shayari',
 'Urdu Shayari',
 "Valentine's Day Shayari ",
@@ -493,38 +500,13 @@ this.loadmoredata();
 
 
 
-permission()
 
-{
-  let list: string[] = [
-    this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE,
-    this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
-  ];
 
-  this.androidPermissions
-    .checkPermission(
-      this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE
-    )
-    .then((res) => {
-      console.log("permission garnteed")
-       if(!res.hasPermission)
-       {
-        this.androidPermissions.requestPermissions(list);
 
-       }//
+lottieConfig: AnimationOptions = {
+    path: `../../assets/animation/1 (1).json`
 
-    },err=>{
-      console.log("no permission error")
-      this.androidPermissions.requestPermissions(list);
-
-    });
 }
-
-
-// lottieConfig: AnimationOptions = {
-//     path: `../../assets/animation/1 (11).json`
-
-// }
 
 
 
@@ -532,11 +514,11 @@ permission()
 setColor(i)
 {
 
-// this.lottieConfig={
-//   ...this.lottieConfig,
-//     path: `../../assets/animation/1 (${i}).json`
+this.lottieConfig={
+  ...this.lottieConfig,
+    path: `../../assets/animation/1 (${i}).json`
 
-// }
+}
   return this.color[i];
 
 
@@ -603,12 +585,13 @@ loadmoredata()
 {
   console.log('x :>> ', this.x);
   this.y=this.y+this.x;
-if(this.displayData.length<=140)
+if(this.displayData.length<=150)
 {
 for(this.flag;this.flag<this.y;this.flag++)
 {
    this.displayData.push(this.data[this.flag])
 }
+
 }
 }
 

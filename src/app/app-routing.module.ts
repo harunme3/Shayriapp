@@ -13,6 +13,14 @@ const routes: Routes = [
   {
     path: 'editor',
     loadChildren: () => import('./pages/editor/editor.module').then( m => m.EditorPageModule)
+  },
+  {
+    path: 'favroite',
+    loadChildren: () => import('./pages/favroite/favroite.module').then( m => m.FavroitePageModule)
+  },
+  {
+    path: 'download',
+    loadChildren: () => import('./pages/download/download.module').then( m => m.DownloadPageModule)
   }
 ];
 @NgModule({

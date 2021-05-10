@@ -13,27 +13,29 @@
 
 
 
-  <ion-card     *ngFor="let item of paginationService.item2 " mode="ios" >
+  <ion-card    *ngFor="let item of paginationService.item2 index as i " mode="ios" >
 
     <ion-card-content>
+    <div #box class="diwnloadcontainer">
       <div class="edit">
-          <div (click)="edit()">
-            edit
-          </div>
-      </div>
+        <div (click)="edit(item)">
+          edit
+        </div>
+    </div>
 
-      {{item}}
+    {{item}}
+    </div>
 
     </ion-card-content>
     <div class="bottom"  >
 
-      <div class="bottom1"               >
+      <div class="bottom1"   (click)="copy(item)"            >
 
         <ion-icon  name="copy-outline" size="large"></ion-icon>
 
       </div>
 
-      <div class="bottom1" >
+      <div class="bottom1"  (click)="Save()">
       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
       </div>
 
@@ -42,7 +44,7 @@
       <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1">
+      <div class="bottom1" (click)="favroite(i)">
       <ion-icon name="heart" size="large" ></ion-icon>
       </div>
 
