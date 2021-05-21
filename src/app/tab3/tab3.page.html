@@ -1,14 +1,88 @@
 <ion-toolbar>
-  <ion-title>33333333</ion-title>
+  <ion-menu-button slot="start"  menu="menu-content"></ion-menu-button>
+  <ion-title>Daily Shayari</ion-title>
+  <ion-icon  class="ion-padding" slot="end" size="large" name="logo-whatsapp">
+  </ion-icon>
+  <ion-icon  class="ion-padding" slot="end" size="large" name="logo-facebook">
+  </ion-icon>
+
+
 </ion-toolbar>
+
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>Awesome Subtitle</ion-card-subtitle>
-      <ion-card-title>Awesome Title</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      Awesome content
+
+
+
+
+  <ion-card #background   *ngFor="let item of paginationService.item2 index as i " mode="ios" >
+
+    <ion-card-content [ngStyle]="{'background-image': setColor(i)}"  (tap)="changeBackground($event)">
+    <div #box class="downloadcontainer">
+      <div class="edit">
+        <div (click)="edit(item)">
+          edit
+        </div>
+    </div>
+
+    {{item}}
+    </div>
+
     </ion-card-content>
+    <div class="bottom"  >
+
+      <div class="bottom1"   (click)="copy(item)"            >
+
+        <ion-icon  name="copy-outline" size="large"></ion-icon>
+
+      </div>
+
+      <div class="bottom1"  (click)="Save()">
+      <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
+      </div>
+
+
+      <div class="bottom1">
+      <ion-icon name="share-social" size="large"></ion-icon>
+      </div>
+
+      <div class="bottom1" (click)="favroite(i)">
+      <ion-icon name="heart" size="large" ></ion-icon>
+      </div>
+
+      <div class="bottom1">
+      <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+      </div>
+
+      </div>
   </ion-card>
+
+
+  <div *ngIf="paginationService.loading"     >
+    <div *ngFor="let item of [].constructor(2) index as i" >
+
+    <ion-card [ngStyle]="{'background-image': setColor(i)}"  mode="ios">
+      <ion-card-content>
+        <ion-skeleton-text  animated style="width:90% ; height: 18px; "   > </ion-skeleton-text>
+      <ion-skeleton-text animated  style="width:70% ; height: 18px "></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 60%;  height: 18px" ></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 80% ; height: 18px "></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:75%;  height: 18px "></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+    </div>  </div>
+
+
+
+
+
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
+
 </ion-content>

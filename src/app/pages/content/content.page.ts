@@ -1,5 +1,5 @@
 import { PaginationService } from './../../service/pagination.service';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IonInfiniteScroll } from '@ionic/angular';
@@ -8,7 +8,7 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import domtoimage from 'dom-to-image';
 import { File } from '@ionic-native/file/ngx';
-import { JSDocComment } from '@angular/compiler';
+
 @Component({
   selector: 'app-content',
   templateUrl: './content.page.html',
@@ -26,13 +26,33 @@ export class ContentPage implements OnInit {
     private clipboard: Clipboard,
     private nativeStorage: NativeStorage,
     private file:File,
+    private renderer:Renderer2
   ) {
 
   }
 
 @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 @Input() value: string;
+@Input() background_image: string;
 @ViewChild('box') box:ElementRef;
+@ViewChild('background') background:ElementRef;
+
+
+
+changeBackground(event)
+{
+
+  console.log('event :>> ', event);
+  this.renderer.setStyle(this.background .nativeElement,' background-image',"url('../../../assets/images/paint.png')")
+
+
+}
+
+
+
+
+
+
 
   ngOnInit(): void {
 
@@ -43,6 +63,11 @@ export class ContentPage implements OnInit {
   }
 
 
+
+  setColor()
+  {
+    return this.background_image
+  }
 
   async edit(item)
   {
@@ -91,9 +116,8 @@ copy(item)
 
 
   closeModal() {
-
+    this.paginationService.ismodalopen=false;
      this.paginationService.reset();
-
     this.modalController.dismiss();
 
   }

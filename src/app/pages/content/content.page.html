@@ -13,10 +13,10 @@
 
 
 
-  <ion-card    *ngFor="let item of paginationService.item2 index as i " mode="ios" >
+  <ion-card #background   *ngFor="let item of paginationService.item2 index as i " mode="ios" >
 
-    <ion-card-content>
-    <div #box class="diwnloadcontainer">
+    <ion-card-content [ngStyle]="{'background-image': setColor()}"   (tap)="changeBackground($event)">
+    <div #box class="downloadcontainer">
       <div class="edit">
         <div (click)="edit(item)">
           edit
@@ -56,19 +56,33 @@
   </ion-card>
 
 
-  <div *ngIf="paginationService.loading"     >
-    <div *ngFor="let item of [].constructor(2)" >
 
-    <ion-card  mode="ios">
+
+
+  <div *ngIf="paginationService.loading"     >
+
+    <div *ngFor="let item of [].constructor(3)" >
+
+
+    <ion-card  [ngStyle]="{'background-image': setColor()}"  mode="ios">
+
+
       <ion-card-content>
-        <ion-skeleton-text  animated style="width:90% ; height: 18px; "   > </ion-skeleton-text>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-skeleton-text  animated style="width:100% ; height: 100%; "   > </ion-skeleton-text>
       <ion-skeleton-text animated  style="width:70% ; height: 18px "></ion-skeleton-text>
       <ion-skeleton-text animated style="width: 60%;  height: 18px" ></ion-skeleton-text>
       <ion-skeleton-text animated style="width: 80% ; height: 18px "></ion-skeleton-text>
       <ion-skeleton-text animated style="width:75%;  height: 18px "></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 30% ; height: 18px "></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:75%;  height: 18px "></ion-skeleton-text>
       </ion-card-content>
     </ion-card>
-    </div>  </div>
+    </div>
+
+  </div>
 
 
 

@@ -26,14 +26,18 @@ ion-card
 
 ion-card-content
 {
- // background-image: linear-gradient( 135deg, #FFF720 10%, #3CD500 100%);
+
+
+min-height: 250px;
   font-size:20px;
   padding: 40px;
 
-  background-image: url('../../../assets/images/love.png');
+  //background-image: url('../../../assets/images/love.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  overflow: hidden;
+
 
 }
 
@@ -46,6 +50,6 @@ ion-card-content
   border: 1px solid black;
   border-radius: 50%;
  margin: 5px 0px;
- text-transform: capitalize;
+
 }
 

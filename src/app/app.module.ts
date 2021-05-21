@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { Injectable, NgModule } from '@angular/core';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
@@ -18,11 +17,25 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Platform } from '@ionic/angular';
+import { BrowserModule,HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { DualDirective } from './directive/dual.directive';
+
+
+@Injectable()
+export class HammerConfig extends HammerGestureConfig {
+  overrides = <any> {
+      // I will only use the swap gesture so
+      // I will deactivate the others to avoid overlaps
+      'pinch': { enable: false },
+      'rotate': { enable: false }
+  }
+}
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DualDirective],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+  imports: [BrowserModule,HammerModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
@@ -30,6 +43,10 @@ import { Platform } from '@ionic/angular';
 
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    },
    PaginationService,
    OneSignal,
    Base64ToGallery,
