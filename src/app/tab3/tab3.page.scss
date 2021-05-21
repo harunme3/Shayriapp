@@ -1,0 +1,50 @@
+
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 0px 10px;
+  padding: 10px;
+
+}
+
+.bottom1 {
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+ion-card
+{
+  margin-bottom: 0%;
+
+  text-align: center;
+
+}
+
+ion-card-content
+{
+  min-height: 250px;
+  font-size:20px;
+  padding: 40px;
+  //background-image: url('../../../assets/images/love.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+}
+
+.edit
+{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 50%;
+ margin: 5px 0px;
+ text-transform: capitalize;
+}
+

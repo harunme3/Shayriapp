@@ -15,6 +15,8 @@ export class PaginationService {
 
 
 
+  ismodalopen:boolean=false;
+
 
 
   // Source data
@@ -45,6 +47,7 @@ init(collection)
 
 
   const first = this.af.collection(collection, ref => {
+
     return ref
     .orderBy("time", "desc")
     .limit(1)
@@ -104,7 +107,7 @@ more(collection) {
 // Maps the snapshot to usable format the updates source
 mapAndUpdate(col: AngularFirestoreCollection<any>) {
 
-
+  console.log('col :>> ', col);
   if (this._done.value || this._loading.value) {
     return;
   }
