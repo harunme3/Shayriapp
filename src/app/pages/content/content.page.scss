@@ -16,30 +16,31 @@
   justify-content: center;
 }
 
-ion-card
-{
-  margin-bottom: 0%;
 
+
+.container
+{
+
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.16);
+  margin: 10px;
+  border-radius: 10px;
+
+}
+
+
+.contentitem
+{
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
   text-align: center;
 
 }
 
-ion-card-content
-{
-
-
-min-height: 250px;
-  font-size:20px;
-  padding: 40px;
-
-  //background-image: url('../../../assets/images/love.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  overflow: hidden;
-
-
-}
 
 .edit
 {
@@ -52,4 +53,5 @@ min-height: 250px;
  margin: 5px 0px;
 
 }
+
 

@@ -1,6 +1,7 @@
 <ion-app>
 
   <ion-menu
+    persistent="true"
     contentId="menu-content"
     menuId="menu-content"
     class="my-custom-menu"
@@ -16,38 +17,39 @@
         </label>
       </div>
 
-      <ion-list lines="none" class="menu-item" width="200">
-        <ion-item>
+      <ion-list #list lines="none" class="menu-item" width="200">
+
+        <ion-item [ngClass]="{'active': true}"     (click)="openEditorPage()" ion-item >
           <img src="../assets/icon/paint-brush.png" alt="" />
           <ion-label>Shayari Creater</ion-label>
         </ion-item>
 
-        <ion-item class="active" ion-item>
+        <ion-item    (click)="openFavroitePage()"  ion-item>
           <img src="../assets/icon/thumb-up.png" alt="" />
           <ion-label>Favorites</ion-label>
         </ion-item>
 
-        <ion-item ion-item>
+        <ion-item       (click)="openDownloadPage()"  ion-item>
           <img src="../assets/icon/direct-download.png" alt="" />
           <ion-label>Downloaded</ion-label>
         </ion-item>
 
-        <ion-item ion-item>
+        <ion-item  (click)="openAboutPage()"      ion-item>
           <img src="../assets/icon/notes.png" alt="" />
           <ion-label>About App</ion-label>
         </ion-item>
 
-        <ion-item ion-item>
+        <ion-item (click)=" paginationService.mail()" ion-item>
           <img src="../assets/icon/envelope.png" alt="" />
           <ion-label>contact us</ion-label>
         </ion-item>
 
-        <ion-item ion-item>
+        <ion-item (click)="openSettingPage()" ion-item>
           <img src="../assets/icon/mechanical-gears-.png" alt="" />
           <ion-label>setting</ion-label>
         </ion-item>
 
-        <ion-item ion-item>
+        <ion-item (click)=" paginationService.shareApp()" ion-item>
           <img src="../assets/icon/share.png" alt="" />
           <ion-label>Share App</ion-label>
         </ion-item>

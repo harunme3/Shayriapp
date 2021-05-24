@@ -21,6 +21,18 @@ const routes: Routes = [
   {
     path: 'download',
     loadChildren: () => import('./pages/download/download.module').then( m => m.DownloadPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'setting',
+    loadChildren: () => import('./pages/setting/setting.module').then( m => m.SettingPageModule)
+  },
+  {
+    path: 'showmedia',
+    loadChildren: () => import('./pages/showmedia/showmedia.module').then( m => m.ShowmediaPageModule)
   }
 ];
 @NgModule({

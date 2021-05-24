@@ -1,9 +1,9 @@
 <ion-toolbar>
   <ion-menu-button slot="start"  menu="menu-content"></ion-menu-button>
   <ion-title>Daily Shayari</ion-title>
-  <ion-icon  class="ion-padding" slot="end" size="large" name="logo-whatsapp">
+  <ion-icon (click)=" paginationService.whatsAppShare()"  class="ion-padding" slot="end" size="large" name="logo-whatsapp">
   </ion-icon>
-  <ion-icon  class="ion-padding" slot="end" size="large" name="logo-facebook">
+  <ion-icon (click)="paginationService.faceboookShare()"  class="ion-padding" slot="end" size="large" name="logo-facebook">
   </ion-icon>
 
 
@@ -11,23 +11,20 @@
 
 <ion-content>
 
+  
 
 
-
-  <ion-card #background   *ngFor="let item of paginationService.item2 index as i " mode="ios" >
-
-    <ion-card-content [ngStyle]="{'background-image': setColor(i)}"  (tap)="changeBackground($event)">
-    <div #box class="downloadcontainer">
-      <div class="edit">
-        <div (click)="edit(item)">
-          edit
-        </div>
-    </div>
-
-    {{item}}
-    </div>
+  <ion-card  *ngFor="let item of paginationService.item2 index as i " mode="ios" >
+ <ion-button (click)="result(i)" expand="block" fill="clear" shape="round">
+   Click me
+ </ion-button>
+    <ion-card-content     (tap)="changeBackground($event,i)">
+      <div [ngStyle]="{'background-image': setColor(i)}"  #box class="contentitem" >
+        {{item}}
+      </div>
 
     </ion-card-content>
+
     <div class="bottom"  >
 
       <div class="bottom1"   (click)="copy(item)"            >
@@ -36,21 +33,29 @@
 
       </div>
 
-      <div class="bottom1"  (click)="Save()">
+      <div class="bottom1"  (click)="saves(i)">
       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
       </div>
 
 
-      <div class="bottom1">
+      <div class="bottom1" (click)="sharec(i)" >
       <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1" (click)="favroite(i)">
-      <ion-icon name="heart" size="large" ></ion-icon>
+
+
+      <div class="bottom1"  (click)=" isfavroite(i)?unfavroite(i):favroite(i)"   >
+      <ion-icon [name]=" isfavroite(i) ? 'heart': 'heart-outline'" size="large" ></ion-icon>
       </div>
 
-      <div class="bottom1">
+
+
+      <div class="bottom1" (click)="whatsAppsharec(i)" >
       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+      </div>
+
+      <div  (click)="paginationService.edit(item)" class="bottom1">
+        <ion-icon name="create-outline" size="large"></ion-icon>
       </div>
 
       </div>
@@ -69,7 +74,8 @@
       <ion-skeleton-text animated style="width:75%;  height: 18px "></ion-skeleton-text>
       </ion-card-content>
     </ion-card>
-    </div>  </div>
+    </div>
+   </div>
 
 
 

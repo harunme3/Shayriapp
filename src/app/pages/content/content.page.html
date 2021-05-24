@@ -13,18 +13,14 @@
 
 
 
-  <ion-card #background   *ngFor="let item of paginationService.item2 index as i " mode="ios" >
+  <ion-card   *ngFor="let item of paginationService.item2 index as i " >
 
-    <ion-card-content [ngStyle]="{'background-image': setColor()}"   (tap)="changeBackground($event)">
-    <div #box class="downloadcontainer">
-      <div class="edit">
-        <div (click)="edit(item)">
-          edit
-        </div>
-    </div>
+    <ion-card-content (tap)="changeBackground($event,i)">
 
-    {{item}}
-    </div>
+
+      <div #box  class="contentitem" >
+        {{item}}
+      </div>
 
     </ion-card-content>
     <div class="bottom"  >
@@ -35,12 +31,12 @@
 
       </div>
 
-      <div class="bottom1"  (click)="Save()">
+      <div class="bottom1"  (click)="saves(i)">
       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
       </div>
 
 
-      <div class="bottom1">
+      <div class="bottom1"  (click)="commonshare(i)" >
       <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
@@ -48,8 +44,11 @@
       <ion-icon name="heart" size="large" ></ion-icon>
       </div>
 
-      <div class="bottom1">
+      <div class="bottom1" (click)="whatsAppSharecard(i)">
       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+      </div>
+      <div  (click)="paginationService.edit(item)" class="bottom1">
+        <ion-icon name="create-outline" size="large"></ion-icon>
       </div>
 
       </div>
@@ -64,7 +63,7 @@
     <div *ngFor="let item of [].constructor(3)" >
 
 
-    <ion-card  [ngStyle]="{'background-image': setColor()}"  mode="ios">
+    <ion-card   mode="ios">
 
 
       <ion-card-content>
