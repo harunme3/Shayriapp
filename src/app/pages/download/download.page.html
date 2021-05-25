@@ -11,11 +11,13 @@
 
 <ion-content>
 
-  <div class="images">
-    <div class="image" *ngFor="let image of [].constructor(10); index as i">
 
-      <img src="../.../../../../assets/images/2 (11).jpg" />
-    </div>
-  </div>
+  <ion-row class="images">
+    <ion-col size="6"  class="image" *ngFor="let item of paginationService.downloadeddata; index as i;">
+     <div class="con" (click)="Showmedia(item,i)" >
 
+    <img [src]=item.imageview  />
+     </div>
+    </ion-col>
+  </ion-row>
 </ion-content>

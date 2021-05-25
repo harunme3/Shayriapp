@@ -1,11 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild ,Renderer2,NgZone, Input} from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import domtoimage from 'dom-to-image';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ImagePicker ,ImagePickerOptions} from '@ionic-native/image-picker/ngx';
-
+import { PaginationService } from './../../service/pagination.service';
 
 
 
@@ -36,7 +36,8 @@ export class EditorPage implements OnInit {
     private file:File,
     private socialSharing: SocialSharing,
     private imagePicker: ImagePicker,
-
+    public paginationService:PaginationService,
+    private toastController: ToastController
 
     ) {
 
@@ -57,6 +58,7 @@ export class EditorPage implements OnInit {
 
 
   closeModal() {
+    this.paginationService.ismodalopen=false;
     this.modalController.dismiss();
   }
 
@@ -142,29 +144,20 @@ TextStyle()
 
 
 
-
+saves()
+{
+  this.paginationService.Save(this.box.nativeElement)
+}
 
 
 Save()
 {
-
-
-
-
-
-      const options = { background: 'white', height: 845, width: 595 };
-      domtoimage.toPng(this.box.nativeElement, options).then(
+      const options = { background: 'white', height: 300, width: 300 };
+      domtoimage.toJpeg(this.box.nativeElement, options).then(
         (dataUrl) =>
       {
-          //Initialize JSPDF
-         console.log('dataUl :>> ',dataUrl);
-         var link = document.createElement('a');
-         link.download = 'my-image-name.png';
-         link.href = dataUrl;
 
-         link.click();
-
-      this.writeFile(dataUrl,'xx','yy.png')
+      this.writeFile(dataUrl,'TRVShayari','new.jpeg')
 
       })
 
@@ -193,9 +186,17 @@ public writeFile(base64Data: any, folderName: string, fileName: any) {
   let filePath = this.file.externalRootDirectory + folderName;
   this.file.createDir( this.file.externalRootDirectory,folderName,true)
 
-  this.file.writeFile(filePath, fileName, DataBlob, contentType).then((success) => {
+  this.file.writeFile(filePath, fileName, DataBlob, contentType).then(async(success) => {
 
     console.log("File Writed Successfully", success);
+    const toast = await this.toastController.create({
+      message: 'Download',
+      duration: 1000,
+     mode:'ios',
+      cssClass: 'my-custom-class',
+
+    });
+    toast.present();
 this.file.checkFile(this.file.externalRootDirectory + folderName,fileName).then((res)=>{
   console.log('res :>> ', res);
 })

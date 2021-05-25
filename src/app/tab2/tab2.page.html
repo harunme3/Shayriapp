@@ -2,10 +2,10 @@
   <ion-menu-button slot="start"  menu="menu-content"></ion-menu-button>
 
   <ion-title>Shayari </ion-title>
-  <ion-icon  class="ion-padding" slot="end" size="large" name="star-half-outline">
+  <ion-icon (click)="rateus()"  class="ion-padding" slot="end" size="large" name="star-half-outline">
   </ion-icon>
 
-  <ion-icon  class="ion-padding" slot="end" size="large" name="share-social-outline">
+  <ion-icon (click)="paginationService.shareApp()" class="ion-padding" slot="end" size="large" name="share-social-outline">
   </ion-icon>
 
 
@@ -33,8 +33,12 @@
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+      loadingSpinner="none">
+      <div class="lottie">
+        <ng-lottie [options]="lottieConfigloader"  width="80px"
+        height="80px" ></ng-lottie>
+      </div>
+
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

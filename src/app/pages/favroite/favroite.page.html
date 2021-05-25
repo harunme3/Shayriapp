@@ -7,43 +7,55 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
 
-  <ion-card *ngFor="let item of displayData index as i " mode="ios">
-    <ion-card-content>
-      <div class="edit">
-        <div (click)="edit(item)">edit</div>
-      </div>
+
+  <div *ngIf=nofavroite [ngStyle]="{'background-image': setColor(1)}"    class="contentitem" >
+<ion-text color="primary">
+  <h1>You have not added any shayari yet</h1>
+</ion-text>
+  </div>
+
+  <ion-card  *ngFor="let item of displayData index as i ">
+
+    <div *ngIf=item  [ngStyle]="{'background-image': setColor(i)}"   #box class="contentitem" >
       {{item}}
-    </ion-card-content>
-    <div class="bottom">
-      <div class="bottom1">
+    </div>
+
+
+    <div *ngIf=item  class="bottom">
+      <div (click)="paginationService.copy(item)"  class="bottom1">
         <ion-icon name="copy-outline" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1">
+      <div (click)="saves(i)" class="bottom1">
         <ion-icon name="arrow-down-circle" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1">
+      <div class="bottom1" (click)="commonshare(i)">
         <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1">
+      <div class="bottom1" (click)=" unfavroite(i)">
         <ion-icon name="heart" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1">
+      <div class="bottom1" (click)="whatsAppcommonshare(i)">
         <ion-icon name="logo-whatsapp" size="large"></ion-icon>
       </div>
+      <div  (click)="paginationService.edit(item)" class="bottom1">
+        <ion-icon name="create-outline" size="large"></ion-icon>
+      </div>
     </div>
+
   </ion-card>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data..."
-    >
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+
+
+
+
+
+
+
 </ion-content>

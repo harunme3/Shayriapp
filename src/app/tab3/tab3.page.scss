@@ -1,3 +1,20 @@
+ion-card {
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.16);
+ }
+
+.contentitem
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  text-align: center;
+  font-size: 20px;
+
+}
+
+
 
 
 .bottom {
@@ -16,35 +33,12 @@
   justify-content: center;
 }
 
-ion-card
+
+
+
+.lottie
 {
-  margin-bottom: 0%;
-
-  text-align: center;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-ion-card-content
-{
-  min-height: 250px;
-  font-size:20px;
-  padding: 40px;
-  //background-image: url('../../../assets/images/love.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-
-}
-
-.edit
-{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 50%;
- margin: 5px 0px;
- text-transform: capitalize;
-}
-

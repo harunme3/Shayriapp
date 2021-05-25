@@ -13,20 +13,15 @@
 
 
 
-  <ion-card #background   *ngFor="let item of paginationService.item2 index as i " mode="ios" >
+  <ion-card   *ngFor="let item of paginationService.item2 index as i " >
 
-    <ion-card-content [ngStyle]="{'background-image': setColor()}"   (tap)="changeBackground($event)">
-    <div #box class="downloadcontainer">
-      <div class="edit">
-        <div (click)="edit(item)">
-          edit
-        </div>
-    </div>
 
-    {{item}}
-    </div>
 
-    </ion-card-content>
+
+      <div #box  [ngStyle]="{'background-image': setColor(i)}" class="contentitem" >
+        {{item}}
+      </div>
+
     <div class="bottom"  >
 
       <div class="bottom1"   (click)="copy(item)"            >
@@ -35,21 +30,22 @@
 
       </div>
 
-      <div class="bottom1"  (click)="Save()">
+      <div class="bottom1"  (click)="saves(i)">
       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
       </div>
 
 
-      <div class="bottom1">
+      <div class="bottom1"  (click)="commonshare(i)" >
       <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1" (click)="favroite(i)">
-      <ion-icon name="heart" size="large" ></ion-icon>
-      </div>
 
-      <div class="bottom1">
+
+      <div class="bottom1" (click)="whatsAppcommonshare(i)">
       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+      </div>
+      <div  (click)="paginationService.edit(item)" class="bottom1">
+        <ion-icon name="create-outline" size="large"></ion-icon>
       </div>
 
       </div>
@@ -61,10 +57,10 @@
 
   <div *ngIf="paginationService.loading"     >
 
-    <div *ngFor="let item of [].constructor(3)" >
+    <div *ngFor="let item of [].constructor(3) index as i" >
 
 
-    <ion-card  [ngStyle]="{'background-image': setColor()}"  mode="ios">
+    <ion-card    [ngStyle]="{'background-image': setColor(i)}"  mode="ios">
 
 
       <ion-card-content>
@@ -91,9 +87,12 @@
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+      loadingSpinner="none">
     </ion-infinite-scroll-content>
+    <div class="lottie">
+      <ng-lottie [options]="lottieConfigloader"  width="80px"
+      height="80px" ></ng-lottie>
+    </div>
   </ion-infinite-scroll>
 
 </ion-content>

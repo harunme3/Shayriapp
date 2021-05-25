@@ -1,9 +1,9 @@
 <ion-toolbar>
   <ion-menu-button slot="start"  menu="menu-content"></ion-menu-button>
   <ion-title>Daily Shayari</ion-title>
-  <ion-icon  class="ion-padding" slot="end" size="large" name="logo-whatsapp">
+  <ion-icon (click)=" paginationService.whatsAppShare()"  class="ion-padding" slot="end" size="large" name="logo-whatsapp">
   </ion-icon>
-  <ion-icon  class="ion-padding" slot="end" size="large" name="logo-facebook">
+  <ion-icon (click)="paginationService.faceboookShare()"  class="ion-padding" slot="end" size="large" name="logo-facebook">
   </ion-icon>
 
 
@@ -14,20 +14,13 @@
 
 
 
-  <ion-card #background   *ngFor="let item of paginationService.item2 index as i " mode="ios" >
+  <ion-card  *ngFor="let item of paginationService.item2 index as i " mode="ios" >
 
-    <ion-card-content [ngStyle]="{'background-image': setColor(i)}"  (tap)="changeBackground($event)">
-    <div #box class="downloadcontainer">
-      <div class="edit">
-        <div (click)="edit(item)">
-          edit
-        </div>
+    <div [ngStyle]="{'background-image': setColor(i)}"  #box class="contentitem" >
+      {{item}}
     </div>
 
-    {{item}}
-    </div>
 
-    </ion-card-content>
     <div class="bottom"  >
 
       <div class="bottom1"   (click)="copy(item)"            >
@@ -36,21 +29,29 @@
 
       </div>
 
-      <div class="bottom1"  (click)="Save()">
+      <div class="bottom1"  (click)="saves(i)">
       <ion-icon name="arrow-down-circle" size="large" ></ion-icon>
       </div>
 
 
-      <div class="bottom1">
+      <div class="bottom1" (click)="commonshare(i)" >
       <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
-      <div class="bottom1" (click)="favroite(i)">
-      <ion-icon name="heart" size="large" ></ion-icon>
+
+
+      <div class="bottom1" (click)="favroiteitem(i)"   >
+      <ion-icon name="heart-outline" size="large" ></ion-icon>
       </div>
 
-      <div class="bottom1">
+
+
+      <div class="bottom1" (click)="whatsAppcommonshare(i)" >
       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
+      </div>
+
+      <div  (click)="paginationService.edit(item)" class="bottom1">
+        <ion-icon name="create-outline" size="large"></ion-icon>
       </div>
 
       </div>
@@ -58,7 +59,7 @@
 
 
   <div *ngIf="paginationService.loading"     >
-    <div *ngFor="let item of [].constructor(2) index as i" >
+    <div *ngFor="let item of [].constructor(3) index as i" >
 
     <ion-card [ngStyle]="{'background-image': setColor(i)}"  mode="ios">
       <ion-card-content>
@@ -69,7 +70,8 @@
       <ion-skeleton-text animated style="width:75%;  height: 18px "></ion-skeleton-text>
       </ion-card-content>
     </ion-card>
-    </div>  </div>
+    </div>
+   </div>
 
 
 
@@ -78,8 +80,12 @@
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+      loadingSpinner="none">   <div class="lottie">
+        <ng-lottie [options]="lottieConfigloader"  width="80px"
+        height="80px" ></ng-lottie>
+      </div>
+
+
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

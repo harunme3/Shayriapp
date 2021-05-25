@@ -1,5 +1,5 @@
 import { Injectable, NgModule } from '@angular/core';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +19,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { Platform } from '@ionic/angular';
 import { BrowserModule,HammerGestureConfig, HammerModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { DualDirective } from './directive/dual.directive';
+import { ColorPickerService } from 'ngx-color-picker';
+
 
 
 @Injectable()
@@ -39,6 +41,8 @@ export class HammerConfig extends HammerGestureConfig {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireStorageModule,
+    RouterModule,
+
 
 
   ],
@@ -56,7 +60,9 @@ export class HammerConfig extends HammerGestureConfig {
    ImagePicker,
    Clipboard,
    NativeStorage,
-   Platform
+   Platform,
+   ColorPickerService,
+
 
 
   ],

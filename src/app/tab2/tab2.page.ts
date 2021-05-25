@@ -1,3 +1,4 @@
+import { Routes, RouterModule } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -10,6 +11,9 @@ import { EditorPage } from '../pages/editor/editor.page';
 import { FavroitePage } from '../pages/favroite/favroite.page';
 import { PaginationService } from '../service/pagination.service';
 
+
+
+
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -20,15 +24,16 @@ export class Tab2Page {
   data:any=[];
   color:any=[];
   flag:number=0;
-  y:number=4;
-  x:number=4;
+  y:number=0;
+  x:number=11;
   displayData:any=[];
 
 
   constructor(private af:AngularFirestore,
     private modalController: ModalController,
 private androidPermissions:AndroidPermissions,
-    private paginationService:PaginationService
+    public paginationService:PaginationService,
+
     )
   {
 
@@ -39,6 +44,8 @@ private androidPermissions:AndroidPermissions,
 
 
 async presentModal(item,index) {
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:ContentPage,
   componentProps: {
@@ -48,36 +55,23 @@ async presentModal(item,index) {
   });
 
   await modal.present();
-
 }
-async presentModalFavroite() {
-  const modal = await this.modalController.create({
-  component:FavroitePage,
-
-  });
-
-  await modal.present();
-
-}
-
-async presentModalDownload() {
-  const modal = await this.modalController.create({
-  component:DownloadPage,
-
-  });
-
-  await modal.present();
 
 }
 
 
 
 async edit() {
+
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:EditorPage
   });
 
   await modal.present();
+
+}
 }
 
 
@@ -277,7 +271,6 @@ this.loadmoredata();
 setColor(i)
 {
 
-
   return this.color[i];
 
 
@@ -308,16 +301,18 @@ searchcard(event?)
 
   this.displayData=[...this.data]
   let searchterm=event.srcElement.value;
-
+ this.infiniteScroll.disabled=true;
 
 if(!searchterm)
 return;
 
 this.displayData=this.displayData.filter((shayari)=>{
   if(searchterm)
-   return shayari.toLowerCase().indexOf(searchterm.toLowerCase())>-1;
+   return shayari.name.toLowerCase().indexOf(searchterm.toLowerCase())>-1;
 
 })
+
+
 
 
 }
@@ -334,8 +329,13 @@ this.displayData=this.displayData.filter((shayari)=>{
       this.loadmoredata()
       console.log('function fired');
       event.target.complete(); // it will hide the spinner
+    //  App logic to determine if all data is loaded
+      // and disable the infinite scroll
+      if (this.displayData.length == 33) {
+        event.target.disabled = true;
+      }
 
-    }, 10);
+    }, 100);
   }
 
 
@@ -343,9 +343,8 @@ this.displayData=this.displayData.filter((shayari)=>{
 
 loadmoredata()
 {
-  console.log('x :>> ', this.x);
   this.y=this.y+this.x;
-if(this.displayData.length<=150)
+if(this.displayData.length<=33)
 {
 for(this.flag;this.flag<this.y;this.flag++)
 {
@@ -357,7 +356,18 @@ for(this.flag;this.flag<this.y;this.flag++)
 
 
 
+lottieConfigloader: AnimationOptions = {
+    path: `../../assets/icon/loader.json`
 
+}
+//
+
+
+rateus()
+{
+
+  window.open('https://play.google.com/store/apps/details?id=com.trv.statussaverforwhatsapp','_system')
+}
 
 
 

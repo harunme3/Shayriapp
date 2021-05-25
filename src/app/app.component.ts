@@ -1,6 +1,18 @@
-import { Component } from '@angular/core';
+import { AboutPage } from './pages/about/about.page';
+import { SettingPage } from './pages/setting/setting.page';
+import { PaginationService } from 'src/app/service/pagination.service';
+import { FavroitePage } from './pages/favroite/favroite.page';
+import { DownloadPage } from './pages/download/download.page';
+import { EditorPage } from './pages/editor/editor.page';
+import { Component, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { ModalController } from '@ionic/angular';
+
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -8,7 +20,11 @@ import { OneSignal } from '@ionic-native/onesignal/ngx';
 })
 export class AppComponent {
   constructor(private oneSignal: OneSignal,
-    private androidPermissions:AndroidPermissions,)
+    private androidPermissions:AndroidPermissions,
+    private modalController: ModalController,
+   private renderer:Renderer2,
+   public paginationService:PaginationService
+    )
   {
     this.initializeApp();
   }
@@ -65,6 +81,74 @@ this.permission();
       this.androidPermissions.requestPermissions(list);
 
     });
+}
+
+
+@ViewChild('list') list:ElementRef
+
+//open modol c
+
+async openEditorPage()
+{
+
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
+  const modal = await this.modalController.create({
+  component:EditorPage,
+  });
+
+  await modal.present();
+}
+}
+
+
+
+async openFavroitePage()
+{
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
+  const modal = await this.modalController.create({
+  component: FavroitePage,
+  });
+
+  await modal.present();
+}
+}
+
+async openDownloadPage()
+{
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
+  const modal = await this.modalController.create({
+  component:DownloadPage,
+  });
+
+  await modal.present();
+}
+}
+
+async openAboutPage()
+{
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
+  const modal = await this.modalController.create({
+  component:AboutPage,
+  });
+
+  await modal.present();
+}
+}
+
+async openSettingPage()
+{
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
+  const modal = await this.modalController.create({
+  component:SettingPage,
+  });
+
+  await modal.present();
+}
 }
 
 
