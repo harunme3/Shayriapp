@@ -11,7 +11,7 @@ import {
   ToastController,
 } from '@ionic/angular';
 import { IonInfiniteScroll } from '@ionic/angular';
-import { AnimationItem } from 'lottie-web';
+
 import { AnimationOptions } from 'ngx-lottie';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
@@ -42,6 +42,8 @@ export class Tab1Page {
 
 
   async presentModal(item, index) {
+
+
     if (!this.paginationService.ismodalopen) {
       this.paginationService.ismodalopen = true;
 
@@ -55,35 +57,52 @@ export class Tab1Page {
 
       await modal.present();
     }
+
+
+
   }
 
 
 
 
   async presentModalFavroite() {
+    if (!this.paginationService.ismodalopen) {
+      this.paginationService.ismodalopen = true;
     const modal = await this.modalController.create({
       component: FavroitePage,
     });
 
     await modal.present();
+
+  }
   }
 
 
 
   async presentModalDownload() {
+
+    if (!this.paginationService.ismodalopen) {
+      this.paginationService.ismodalopen = true;
     const modal = await this.modalController.create({
       component: DownloadPage,
     });
 
     await modal.present();
+
+  }
   }
 
   async edit() {
+
+    if (!this.paginationService.ismodalopen) {
+      this.paginationService.ismodalopen = true;
     const modal = await this.modalController.create({
       component: EditorPage,
     });
 
     await modal.present();
+
+  }
   }
 
   ngOnInit(): void {

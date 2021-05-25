@@ -1,5 +1,14 @@
 import { PaginationService } from './../service/pagination.service';
-import { Component, ElementRef, Input, OnInit, ViewChild, Renderer2, QueryList, ViewChildren } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  Renderer2,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { IonInfiniteScroll } from '@ionic/angular';
@@ -8,64 +17,38 @@ import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import domtoimage from 'dom-to-image';
 import { File } from '@ionic-native/file/ngx';
-
-
+import { AnimationOptions } from 'ngx-lottie';
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  styleUrls: ['tab3.page.scss'],
 })
-
-
 export class Tab3Page {
-  data:any[]=[];
-  color:any=[];
+
+color:any=[];
   constructor(
     private modalController: ModalController,
     private af: AngularFirestore,
-    public paginationService:PaginationService,
+    public paginationService: PaginationService,
     private clipboard: Clipboard,
     private nativeStorage: NativeStorage,
-    private file:File,
-    private renderer:Renderer2
-  ) {
+    private file: File,
+    private renderer: Renderer2
+  ) {}
 
+  @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
+
+  @ViewChildren('box') box: QueryList<ElementRef>;
+
+  saves(i) {
+    this.paginationService.Save(this.box.get(i).nativeElement);
+    console.log(' :>> ', this.box.get(i).nativeElement);
   }
-
-@ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-
-
-@ViewChildren('box') box:QueryList<ElementRef>
-
-
-saves(i)
-{
-
-  this.paginationService.Save(this.box.get(i).nativeElement)
-  console.log(' :>> ',this.box.get(i).nativeElement );
-}
-
-
-
-
-changeBackground(event,i)
-{
-
-  console.log('event :>> ',this.box.get(i).nativeElement);
-  this.renderer.setStyle(this.box.get(i).nativeElement,' background-color','red')
-
-
-}
-
-
-
-
 
 
 
   ngOnInit(): void {
-
-    this.color=[
+    this.color = [
       'linear-gradient( 135deg, #FFF720 10%, #3CD500 100%)',
       'linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)',
       'linear-gradient( 135deg, #ABDCFF 10%, #0396FF 100%)',
@@ -202,7 +185,8 @@ changeBackground(event,i)
       'linear-gradient(to top, rgb(59, 65, 197) 0%, rgb(169, 129, 187) 49%, rgb(255, 200, 169) 100%)',
       'linear-gradient(to top, rgb(15, 216, 80) 0%, rgb(249, 240, 71) 100%)',
       'linear-gradient(to right, rgb(58, 181, 176) 0%, rgb(61, 153, 190) 31%, rgb(86, 49, 122) 100%)',
-      'radial-gradient(at 50% 100%, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%)',, 'linear-gradient(rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%)',
+      'radial-gradient(at 50% 100%, rgba(255, 255, 255, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%)',
+      'linear-gradient(rgba(255, 255, 255, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%)',
       'linear-gradient(to top, rgb(32, 156, 255) 0%, rgb(104, 224, 207) 100%)',
       'linear-gradient(to top, rgb(230, 185, 128) 0%, rgb(234, 205, 163) 100%)',
       'linear-gradient(to top, rgb(30, 60, 114) 0%, rgb(30, 60, 114) 1%, rgb(42, 82, 152) 100%)',
@@ -248,7 +232,6 @@ changeBackground(event,i)
       'linear-gradient(-225deg, rgb(125, 226, 252) 0%, rgb(185, 182, 229) 100%)',
       'linear-gradient(-225deg, rgb(203, 186, 204) 0%, rgb(37, 128, 179) 100%)',
       'linear-gradient(-225deg, rgb(183, 248, 219) 0%, rgb(80, 167, 194) 100%)',
-
       'linear-gradient(-225deg, rgb(119, 255, 210) 0%, rgb(98, 151, 219) 48%, rgb(30, 236, 255) 100%)',
       'linear-gradient(-225deg, rgb(172, 50, 228) 0%, rgb(121, 24, 242) 48%, rgb(72, 1, 255) 100%)',
       'linear-gradient(-225deg, rgb(212, 255, 236) 0%, rgb(87, 242, 204) 48%, rgb(69, 150, 251) 100%)',
@@ -263,201 +246,71 @@ changeBackground(event,i)
       'linear-gradient(-225deg, rgb(105, 234, 203) 0%, rgb(234, 204, 248) 48%, rgb(102, 84, 241) 100%)',
       'linear-gradient(-225deg, rgb(35, 21, 87) 0%, rgb(68, 16, 122) 29%, rgb(255, 19, 97) 67%, rgb(255, 248, 0) 100%)',
       'linear-gradient(-225deg, rgb(61, 78, 129) 0%, rgb(87, 83, 201) 48%, rgb(110, 127, 243) 100%)',
-      ]
-  this.paginationService.init('Update Daily Shayari');
-
-
-
+    ];
+    this.paginationService.init('Update Daily Shayari');
   }
 
-
-
-  async edit(item)
-  {
+  async edit(item) {
+    if (!this.paginationService.ismodalopen) {
+      this.paginationService.ismodalopen = true;
     const modal = await this.modalController.create({
-      component:EditorPage,
-      componentProps:{value:item}
-      });
+      component: EditorPage,
+      componentProps: { value: item },
+    });
 
-      await modal.present();
+    await modal.present();
 
   }
+  }
 
-copy(item)
-{
-  this.clipboard.copy(item);
-}
-
-
-
-
-
-
-
-
-
-
-
-
+  copy(item) {
+    this.clipboard.copy(item);
+  }
 
   //infinite scroll
   //it will when reach 100px from bottom
-  count:number=0;
+  count: number = 0;
   loadData(event) {
     console.log('reached at 100px distance from bottom');
     setTimeout(() => {
-     this.paginationService.more('Aankhen Shayari');
+      this.paginationService.more('Update Daily Shayari');
       console.log('function fired');
       event.target.complete(); // it will hide the spinner
-
     }, 2000);
   }
 
-
-
-
-
-
   closeModal() {
-
-     this.paginationService.reset();
+    this.paginationService.reset();
 
     this.modalController.dismiss();
+  }
 
+
+
+  favroiteitem(i)
+  {
+
+    this.paginationService.favroite(i);
   }
 
 
 
 
-  isfavroite(index)
-  {
-
-
-return false;
-
+  lottieConfigloader: AnimationOptions = {
+    path: `../../assets/icon/loader.json`,
+  };
 
 
 
-
-
-
-  }
-
-
-result(index)
-{
-
-
-  return this.nativeStorage.getItem('boobs').then((res)=>{
-
-    console.log('res', JSON.parse(res)[index]);
-
-     if(JSON.parse(res)[index])
-     {
-       console.log('true')
-          return true;
-     }
-     else
-     {
-      console.log('false')
-       return false;
-     }
-
-   })
-
-}
-
-
-
-
-
-
-
-
-  favroite(index)
-  {
-
-    console.log(' favroite');
-
-    this.nativeStorage.getItem('boobs').then((res)=>{
-
-
-      this.data[index]=this.paginationService.item2[index];
-      this.nativeStorage.setItem('boobs',JSON.stringify(this.data));
-
-      console.log(JSON.parse(res));
-
-    }).catch((e)=>{
-
-      this.data[index]=this.paginationService.item2[index];
-      this.nativeStorage.setItem('boobs',JSON.stringify(this.data));
-      console.log('first time catch block');
-
-    })
-
-
-
-
-
-  }
-
-
-  unfavroite(index)
-  {
-    console.log('unfavroite');
-    this.nativeStorage.getItem('boobs').then((res)=>{
-
-      let updated_index=JSON.parse(res).length+index;
-      this.data[index]=this.paginationService.item2[index];
-      this.nativeStorage.setItem('boobs',JSON.stringify(this.data));
-
-
-      console.log(JSON.parse(res));
-
-
-
-
-    })
-
-
-
-
-  }
-
-
-
-
-
-
-  setColor(i)
-  {
-
-
+  setColor(i) {
     return this.color[i];
-
-
   }
 
-
-
-  sharec(i)
-  {
-
-this.paginationService.commonshare(this.box.get(i).nativeElement)
-
+  commonshare(i) {
+    this.paginationService.commonshare(this.box.get(i).nativeElement);
   }
 
-  whatsAppsharec(i)
-  {
-
-
-
+  whatsAppcommonshare(i) {
+    this.paginationService.whatsAppcommonshare(this.box.get(i).nativeElement);
   }
-
-
-
-
-
-
-
 }

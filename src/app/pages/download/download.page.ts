@@ -38,7 +38,8 @@ this.paginationService.fetchdownloadedcard();
 
 async Showmedia(image,index) {
 
-  console.log('image :>> ', image);
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component: ShowmediaPage,
   componentProps: {
@@ -50,6 +51,7 @@ async Showmedia(image,index) {
   });
 
   await modal.present();
+}
 
 }
 
@@ -63,7 +65,7 @@ async Showmedia(image,index) {
 
   closeModal() {
 
-
+    this.paginationService.ismodalopen=false;
    this.modalController.dismiss();
 
 

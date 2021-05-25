@@ -1,3 +1,4 @@
+import { PaginationService } from 'src/app/service/pagination.service';
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
@@ -8,12 +9,13 @@ import { ModalController } from '@ionic/angular';
 })
 export class AboutPage implements OnInit {
 
-  constructor(private modalController: ModalController) { }
+  constructor(private modalController: ModalController,
+    public paginationService: PaginationService,) { }
 
   ngOnInit() {
   }
   closeModal() {
-
+    this.paginationService.ismodalopen=false;
     this.modalController.dismiss();
 
   }

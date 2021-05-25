@@ -90,54 +90,65 @@ this.permission();
 
 async openEditorPage()
 {
-  console.log('this.list :>> ', this.list);
- //this.renderer.addClass()
+
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:EditorPage,
   });
 
   await modal.present();
 }
+}
 
 
 
 async openFavroitePage()
 {
-
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component: FavroitePage,
   });
 
   await modal.present();
 }
+}
 
 async openDownloadPage()
 {
-
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:DownloadPage,
   });
 
   await modal.present();
 }
+}
+
 async openAboutPage()
 {
-
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:AboutPage,
   });
 
   await modal.present();
 }
+}
 
 async openSettingPage()
 {
-
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:SettingPage,
   });
 
   await modal.present();
+}
 }
 
 

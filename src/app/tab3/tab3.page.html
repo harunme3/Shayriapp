@@ -11,19 +11,15 @@
 
 <ion-content>
 
-  
+
 
 
   <ion-card  *ngFor="let item of paginationService.item2 index as i " mode="ios" >
- <ion-button (click)="result(i)" expand="block" fill="clear" shape="round">
-   Click me
- </ion-button>
-    <ion-card-content     (tap)="changeBackground($event,i)">
-      <div [ngStyle]="{'background-image': setColor(i)}"  #box class="contentitem" >
-        {{item}}
-      </div>
 
-    </ion-card-content>
+    <div [ngStyle]="{'background-image': setColor(i)}"  #box class="contentitem" >
+      {{item}}
+    </div>
+
 
     <div class="bottom"  >
 
@@ -38,19 +34,19 @@
       </div>
 
 
-      <div class="bottom1" (click)="sharec(i)" >
+      <div class="bottom1" (click)="commonshare(i)" >
       <ion-icon name="share-social" size="large"></ion-icon>
       </div>
 
 
 
-      <div class="bottom1"  (click)=" isfavroite(i)?unfavroite(i):favroite(i)"   >
-      <ion-icon [name]=" isfavroite(i) ? 'heart': 'heart-outline'" size="large" ></ion-icon>
+      <div class="bottom1" (click)="favroiteitem(i)"   >
+      <ion-icon name="heart-outline" size="large" ></ion-icon>
       </div>
 
 
 
-      <div class="bottom1" (click)="whatsAppsharec(i)" >
+      <div class="bottom1" (click)="whatsAppcommonshare(i)" >
       <ion-icon name="logo-whatsapp" size="large"></ion-icon>
       </div>
 
@@ -63,7 +59,7 @@
 
 
   <div *ngIf="paginationService.loading"     >
-    <div *ngFor="let item of [].constructor(2) index as i" >
+    <div *ngFor="let item of [].constructor(3) index as i" >
 
     <ion-card [ngStyle]="{'background-image': setColor(i)}"  mode="ios">
       <ion-card-content>
@@ -84,8 +80,12 @@
 
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+      loadingSpinner="none">   <div class="lottie">
+        <ng-lottie [options]="lottieConfigloader"  width="80px"
+        height="80px" ></ng-lottie>
+      </div>
+
+
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 

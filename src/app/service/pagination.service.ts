@@ -1,4 +1,4 @@
-import { EditorPage } from './../pages/editor/editor.page';
+
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {
   AngularFirestore,
@@ -7,22 +7,19 @@ import {
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, pipe, Observable } from 'rxjs';
 import { scan, tap, take, retry, retryWhen, delay } from 'rxjs/operators';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, Platform } from '@ionic/angular';
 import { Clipboard } from '@ionic-native/clipboard/ngx';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { File } from '@ionic-native/file/ngx';
 import domtoimage from 'dom-to-image';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class PaginationService {
-
-  count:number=0;
+  count: number = 0;
   ismodalopen: boolean = false;
-
-
-
 
   // Source data
   private _done = new BehaviorSubject(false);
@@ -41,11 +38,15 @@ export class PaginationService {
     private clipboard: Clipboard,
     private nativeStorage: NativeStorage,
     private file: File,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private platform:Platform,
   ) {}
 
   item2: any = [];
   favoritedata: any = [];
+
+
+
 
   init(collection) {
     const first = this.af.collection(collection, (ref) => {
@@ -177,25 +178,31 @@ export class PaginationService {
     toast.present();
   }
 
+  public writeFileShare(base64Data: any, folderName: string, fileName: any) {
+    return new Promise((resolve, reject) => {
+      let contentType = this.getContentType(base64Data);
+      let DataBlob = this.base64toBlob(base64Data, contentType);
+      // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.
+      let filePath = this.file.externalRootDirectory + folderName;
+      this.file.createDir(this.file.externalRootDirectory, folderName, true);
 
-
-
-
-
+      this.file
+        .writeFile(filePath, fileName, DataBlob, contentType)
+        .then((r) => {
+          resolve('resolved');
+        })
+        .catch((err) => {
+          console.log('Error Occured While Writing File', err);
+          reject('rejected');
+        });
+    });
+  }
 
   Save(box) {
+    let file_name = new Date().getTime().toString() + '.jpeg';
 
-
-    let file_name=new Date().getTime().toString()+'.png';
-
-    const options = { background: 'white', height: 845, width: 595 };
-    domtoimage.toPng(box, options).then((dataUrl) => {
-
-      var link = document.createElement('a');
-      link.download =file_name;
-      link.href = dataUrl;
-
-      link.click();
+    const options = { background: 'white', height: 300, width: 300 };
+    domtoimage.toJpeg(box, options).then((dataUrl) => {
 
       this.writeFile(dataUrl, 'TRVShayari', file_name);
     });
@@ -207,7 +214,6 @@ export class PaginationService {
     // here iam mentioned this line this.file.externalRootDirectory is a native pre-defined file path storage. You can change a file path whatever pre-defined method.
     let filePath = this.file.externalRootDirectory + folderName;
     this.file.createDir(this.file.externalRootDirectory, folderName, true);
-
     this.file
       .writeFile(filePath, fileName, DataBlob, contentType)
       .then(async (success) => {
@@ -219,8 +225,6 @@ export class PaginationService {
           cssClass: 'my-custom-class',
         });
         toast.present();
-
-
       })
       .catch((err) => {
         console.log('Error Occured While Writing File', err);
@@ -256,58 +260,77 @@ export class PaginationService {
     return blob;
   }
 
-  async edit(item) {
-    const modal = await this.modalController.create({
-      component: EditorPage,
-      componentProps: { value: item },
-    });
-
-    await modal.present();
-  }
 
   //action bar 2
 
+  commonshare(box) {
 
-    commonshare(box) {
+    let file_name = new Date().getTime().toString() + '.jpeg';
+    const options = { background: 'white', height: 300, width: 300 };
 
-    //save
-
-    let file_name=new Date().getTime().toString()+'.png';
-
-    // const options = { background: 'white', height: 845, width: 595 };
-    // domtoimage.toPng(box, options).then((dataUrl) => {
-    //   this.writeFile(dataUrl, 'TRVShayari', file_name);
-    // });
-
-
-    this.file.resolveDirectoryUrl(this.file.externalRootDirectory+'TRVShayari').then((res)=>{
-      this.file.getFile(res,file_name,{create:false}).then((url)=>{
-        console.log('url :>> ', url.nativeURL);
-        this.socialSharing.share('', '', url.nativeURL, '');
-      }).catch((err)=>{
-        console.log('err :>> ', err);
-      })
-    }).catch((e)=>{
-      console.log('e :>> ', e);
-    })
-
-
-
-    //share
-
-
-    //delete
-
-
-    this.file.removeFile(this.file.externalRootDirectory+'TRVShayari',file_name);
-
-
+    domtoimage.toJpeg(box, options).then((dataUrl) => {
+      this.writeFileShare(dataUrl, 'TRVShayari', file_name).then((res) => {
+        this.file
+          .resolveLocalFilesystemUrl(
+            `file:///storage/emulated/0/TRVShayari/${file_name}`
+          )
+          .then((res) => {
+            this.socialSharing
+              .share(
+                'install this app for latest shayari',
+                '',
+                `file:///storage/emulated/0/TRVShayari/${file_name}`,
+                ''
+              )
+              .then((res) => {
+                console.log('deleted',res);
+                this.file.removeFile(
+                  this.file.externalRootDirectory + 'TRVShayari',
+                  file_name
+                );
+              });
+          })
+          .catch((e) => {
+            console.log('e :>> ', e);
+          });
+      });
+    });
+  }
 
 
 
+  whatsAppcommonshare(box) {
+
+    let file_name = new Date().getTime().toString() + '.jpeg';
+    const options = { background: 'white', height: 300, width: 300 };
 
 
-    }
+    domtoimage.toJpeg(box, options).then((dataUrl) => {
+      this.writeFileShare(dataUrl, 'TRVShayari', file_name).then((res) => {
+
+
+        this.file
+          .resolveLocalFilesystemUrl(
+            `file:///storage/emulated/0/TRVShayari/${file_name}`
+          )
+          .then((res) => {
+            this.socialSharing
+              .shareViaWhatsApp(
+                'install this app for latest shayari',
+                `file:///storage/emulated/0/TRVShayari/${file_name}`,
+                ''
+              )
+              .then((res) => {
+
+
+              setTimeout(() => {
+                this.file.removeFile(
+                  this.file.externalRootDirectory + 'TRVShayari',
+                  file_name
+                );
+
+                console.log('deleted',res);
+              }, 30000);
 
 
 
@@ -315,14 +338,13 @@ export class PaginationService {
 
 
 
-
-
-  whatsAppSharecard(box) {
-    this.socialSharing.shareViaWhatsApp(
-      'install this app',
-      '',
-      'https://play.google.com/store/apps/details?id=com.trv.statussaverforwhatsapp'
-    );
+              });
+          })
+          .catch((e) => {
+            console.log('e :>> ', e);
+          });
+      });
+    });
   }
 
 
@@ -332,77 +354,86 @@ export class PaginationService {
 
 
 
-downloadeddata:any=[];
-
-fetchdownloadedcard()
-{
 
 
-  this.file.listDir(this.file.externalRootDirectory,'TRVShayari').then((entry)=>{
 
-    entry.map(data=>{
-      this.downloadeddata.push({
-        imageview:this.getimagesrc(data.nativeURL),
-        nativeurl:data.nativeURL
+
+
+
+
+
+
+
+  downloadeddata: any = [];
+
+  fetchdownloadedcard() {
+    this.file
+      .listDir(this.file.externalRootDirectory, 'TRVShayari')
+      .then((entry) => {
+        entry.map((data) => {
+          this.downloadeddata.push({
+            imageview: this.getimagesrc(data.nativeURL),
+            nativeurl: data.nativeURL,
+          });
+        });
       });
-    })
+  }
+
+  public win: any = window;
+
+  getimagesrc(urls) {
+    let path = this.win.Ionic.WebView.convertFileSrc(urls);
+    return path;
+  }
 
 
 
+  favdata: any[] = [];
 
 
-  })
-
-}
+  favroite(index) {
 
 
-
-public win: any = window;
-
-getimagesrc(urls) {
-  let path = this.win.Ionic.WebView.convertFileSrc(urls);
-  return path;
-}
+    this.nativeStorage
+      .getItem('boobs')
+      .then((res) => {
 
 
+          this.favdata=[...JSON.parse(res)];
+
+        this.favdata[index] = this.item2[index];
+        this.nativeStorage.setItem('boobs', JSON.stringify(this.favdata)).then((res)=>{
+
+          console.log(JSON.parse(res));
+        });
 
 
+      })
+      .catch((e) => {
+        this.favdata[index] = this.item2[index];
+        this.nativeStorage.setItem('boobs', JSON.stringify(this.favdata));
+        console.log('first time catch block');
+      });
 
 
+  }
 
 
-
-
-
-
-
-favroite(index) {
-
-
+  unfavroite(index)
+  {
 this.nativeStorage.getItem('boobs').then((res)=>{
 
-  console.log('res :>> ', res);
 
-}).catch((e)=>{
+  this.favdata[index]=null;
+  this.nativeStorage.setItem('boobs', JSON.stringify(this.favdata)).then((res)=>{
 
-  console.log('e :>> ', e);
+    console.log(JSON.parse(res));
+  });
+
+
 })
 
-
-
-
-
-  this.favoritedata[index] = this.item2[index];
-  this.nativeStorage.setItem('boobs', JSON.stringify(this.favoritedata));
-
-
-}
-
-
-
-
-
-
+  }
 
 
 

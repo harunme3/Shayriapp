@@ -44,6 +44,8 @@ private androidPermissions:AndroidPermissions,
 
 
 async presentModal(item,index) {
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:ContentPage,
   componentProps: {
@@ -53,36 +55,23 @@ async presentModal(item,index) {
   });
 
   await modal.present();
-
 }
-async presentModalFavroite() {
-  const modal = await this.modalController.create({
-  component:FavroitePage,
-
-  });
-
-  await modal.present();
-
-}
-
-async presentModalDownload() {
-  const modal = await this.modalController.create({
-  component:DownloadPage,
-
-  });
-
-  await modal.present();
 
 }
 
 
 
 async edit() {
+
+  if (!this.paginationService.ismodalopen) {
+    this.paginationService.ismodalopen = true;
   const modal = await this.modalController.create({
   component:EditorPage
   });
 
   await modal.present();
+
+}
 }
 
 
@@ -368,7 +357,7 @@ for(this.flag;this.flag<this.y;this.flag++)
 
 
 lottieConfigloader: AnimationOptions = {
-    path: `../../assets/icon/wheel.json`
+    path: `../../assets/icon/loader.json`
 
 }
 //

@@ -28,7 +28,7 @@ export class ShowmediaPage implements OnInit {
   }
 
   closeModal() {
-
+    this.paginationService.ismodalopen=false;
     this.modalController.dismiss();
 
 

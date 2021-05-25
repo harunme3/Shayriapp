@@ -58,6 +58,7 @@ export class EditorPage implements OnInit {
 
 
   closeModal() {
+    this.paginationService.ismodalopen=false;
     this.modalController.dismiss();
   }
 
@@ -151,19 +152,12 @@ saves()
 
 Save()
 {
-      const options = { background: 'white', height: 845, width: 595 };
-      domtoimage.toPng(this.box.nativeElement, options).then(
+      const options = { background: 'white', height: 300, width: 300 };
+      domtoimage.toJpeg(this.box.nativeElement, options).then(
         (dataUrl) =>
       {
-          //Initialize JSPDF
-         console.log('dataUl :>> ',dataUrl);
-         var link = document.createElement('a');
-         link.download = 'my-image-name.png';
-         link.href = dataUrl;
 
-         link.click();
-
-      this.writeFile(dataUrl,'xx','yy.png')
+      this.writeFile(dataUrl,'TRVShayari','new.jpeg')
 
       })
 

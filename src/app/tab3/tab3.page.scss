@@ -1,3 +1,20 @@
+ion-card {
+  border-radius: 10px;
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.16);
+ }
+
+.contentitem
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  text-align: center;
+  font-size: 20px;
+
+}
+
+
 
 
 .bottom {
@@ -16,37 +33,12 @@
   justify-content: center;
 }
 
-.container
+
+
+
+.lottie
 {
-
-  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.16);
-  margin: 10px;
-  border-radius: 10px;
-
-}
-
-
-.contentitem
-{
-
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 200px;
-  text-align: center;
-
-}
-
-.edit
-{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 50%;
- margin: 5px 0px;
-
 }
